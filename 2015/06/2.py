@@ -1,5 +1,5 @@
 rows, cols = (1000, 1000)
-grid = [[False for y in range(cols)] for x in range(rows)]
+grid = [[0 for y in range(cols)] for x in range(rows)]
 
 def get_prefix(s):
 	instructions = ['turn on', 'turn off', 'toggle']
@@ -20,11 +20,12 @@ def change_grid(coords, prefix):
 def change_bulb(prefix, x, y):
 	match prefix:
 		case 'turn on':
-			grid[x][y] = True
+			grid[x][y] += 1
 		case 'turn off':
-			grid[x][y] = False
+			if grid[x][y] > 0:
+				grid[x][y] -= 1
 		case 'toggle':
-			grid[x][y] = not grid[x][y]
+			grid[x][y] += 2
 		case _:
 			print('Prefix does not fined')
 
@@ -36,4 +37,4 @@ with open('input.txt', 'r') as f:
 
 
 
-print(sum(x.count(True) for x in grid))
+print(sum(sum(x) for x in grid))
