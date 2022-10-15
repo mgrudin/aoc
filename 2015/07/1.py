@@ -1,5 +1,6 @@
 import re
 
+base_instructions = {}
 instructions = {}
 
 def get_instruction_value(id):
@@ -52,7 +53,11 @@ def get_instruction_value(id):
 with open('input.txt', 'r') as f:
 	for line in f:
 		splited_line = line.rstrip().split("->")
-		instructions[splited_line[1].lstrip()] = splited_line[0]
+		base_instructions[splited_line[1].lstrip()] = splited_line[0]
 
+instructions = base_instructions.copy()
+wire_a_signal = get_instruction_value('a')
+instructions = base_instructions.copy()
+instructions['b'] = wire_a_signal
 
 print(get_instruction_value('a'))
